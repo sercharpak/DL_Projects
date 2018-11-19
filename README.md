@@ -12,7 +12,8 @@ Link for the description of the miniprojects [Website](https://documents.epfl.ch
 
 ## EEG - BCI - Project
 The first project ([here](https://github.com/sercharpak/DL_Projects/tree/master/EEG-BCI-Project/)) consisted on re-doing one of the 
-BCI challenges (with EEG data) using DL state of the art techinques.
+BCI challenges (with EEG data) of predicting laterality of finger movement 
+using DL state of the art techinques.
 
 ## Basic DL Framework
 The second project ([here](https://github.com/sercharpak/DL_Projects/tree/master/Basic-DL-Framework-Project/)) consisted on implementing a DL 
