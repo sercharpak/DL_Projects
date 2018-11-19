@@ -2,7 +2,7 @@
 
 Deep Learning mini-projects for the EPFL course (Spring 2018) taught by Fleuret François.
 
-Link for the description of the miniprojects [Website](https://documents.epfl.ch/users/f/fl/fleuret/www/dlc/#mini-projects)
+ [Website](https://fleuret.org/ee559/) of the course.
 
 ### Autors
 
