@@ -8,7 +8,7 @@ Deep Learning mini-projects for the EPFL course (Spring 2018) taught by Fleuret 
 
 * Laurent Colbois
 * Wojciech Jerzy Reise
-* Sergio Daniel Hernanez
+* Sergio Daniel Hernandez Charpak
 
 ## EEG - BCI - Project
 The first project ([here](https://github.com/sercharpak/DL_Projects/tree/master/EEG-BCI-Project/)) consisted on re-doing one of the 
