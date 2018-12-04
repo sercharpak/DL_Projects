@@ -60,6 +60,7 @@ else:
     plt.xlabel('Epoch')
     plt.ylabel('Loss (Cross entropy)')
     for i in range(0,len(lines)-2*n_last,2):
+        print(lines[i])
         model = lines[i][0]
         tr_loss = lines[i][2][2:]
         val_loss = lines[i+1][2][2:]

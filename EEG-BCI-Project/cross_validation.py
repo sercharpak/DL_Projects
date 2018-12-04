@@ -63,9 +63,9 @@ def train_model(model, criterion, optimizer, scheduler,train_input, train_target
     """
     # Augment the data if necessary and make Variables
     train_input, train_target = augment_train(train_input, train_target, n_augmentation, 0.1, 2 , 0.2,verbose)
-    train_input, train_target = Variable(train_input), Variable(train_target)
-    if(save_loss):
-        val_input,val_target = Variable(val_input),Variable(val_target)
+    #train_input, train_target = Variable(train_input), Variable(train_target) # No longer necessary in Pytorch 0.4
+    #if(save_loss): # No longer necessary in Pytorch 0.4
+    #    val_input,val_target = Variable(val_input),Variable(val_target) # No longer necessary in Pytorch 0.4
 
     for e in range(n_epochs):
         scheduler.step() # decrease the learning rate
@@ -88,10 +88,10 @@ def train_model(model, criterion, optimizer, scheduler,train_input, train_target
                 optimizer.step()
         # save loss data, if save_loss is true
         if(save_loss):
-            tr_loss.append(criterion(model(train_input),train_target).data[0])
-            val_loss.append(criterion(model(val_input),val_target).data[0])
-            tr_err.append(evaluate_error(model,train_input.data,train_target.data))
-            val_err.append(evaluate_error(model,val_input.data,val_target.data))
+            tr_loss.append(criterion(model(train_input),train_target).item())#item and detach from pytorch 0.4
+            val_loss.append(criterion(model(val_input),val_target).item())#item and detach from pytorch 0.4
+            tr_err.append(evaluate_error(model,train_input.detach(),train_target.detach()).item()) #item and detach from pytorch 0.4
+            val_err.append(evaluate_error(model,val_input.detach(),val_target.detach()).item()) #item and detach from pytorch 0.4
     if(verbose == 1):
         print("Training ended successfully after {} epochs".format(n_epochs))
 
@@ -103,13 +103,14 @@ def evaluate_error(model, data_input, data_target):
             data_target -> the correct labels for the input data
     Outputs: the number of missclassified samples
     """
-    data_input, data_target = Variable(data_input,volatile=True),Variable(data_target,volatile=True)
-    nb_errors = 0
+    #data_input, data_target = Variable(data_input,volatile=True),Variable(data_target,volatile=True)# No longer necessary in Pytorch 0.4
+    with torch.no_grad(): 
+        nb_errors = 0
 
-    output = model(data_input)
-    nb_errors += (output.max(1)[1] != data_target).long().data.sum() # count the number of samples in the output with labels different than in the target
+        output = model(data_input)
+        nb_errors += (output.max(1)[1] != data_target).long().detach().sum() # count the number of samples in the output with labels different than in the target #detach is for pytorch 0.4
 
-    return nb_errors/data_input.size(0) # take the mean, to get a fraction of missclassified samples
+        return nb_errors.float()/data_input.size(0) # take the mean, to get a fraction of missclassified samples #pytorch 0.4 need to be float to be able to divide.
 
 def cross_validate(model,criterion,optimizer,scheduler,dataset,target,k_fold,n_epochs=250,batch_size = 50,n_augmentation =0,verbose=0):
     """

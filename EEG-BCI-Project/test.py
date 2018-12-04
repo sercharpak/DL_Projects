@@ -22,6 +22,10 @@ else:
 
 """Load the data and standardize"""
 import dlc_bci as bci
+import torch
+
+dtype = torch.float
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print("Loading the data and standardizing...")
 train_input ,train_target = bci.load( root = './data_bci',one_khz=one_khz)
 test_input,test_target = bci.load(root='./data_bci', train = False, one_khz=one_khz)
@@ -59,6 +63,7 @@ epochs_list = [75,75,75,150]
 
 import cross_validation as cv #Also used for the train_model, even without cross validation_data
 import json
+
 dump_final = []
 if(cross_val):
     dump = []
@@ -84,8 +89,8 @@ for i in range(len(model_list)):
     final_te_error = cv.evaluate_error(model,test_input,test_target)
     print("Train error = {} ; Test error = {} ".format(final_tr_error,final_te_error))
 
-    dump_final.append((model.name(), " train ", final_tr_error))
-    dump_final.append((model.name(), " test " , final_te_error))
+    dump_final.append((model.name(), " train ", final_tr_error.item()))
+    dump_final.append((model.name(), " test " , final_te_error.item()))
 
 
 file = open('final_'+str(n_time_points)+'t.txt','w+')
