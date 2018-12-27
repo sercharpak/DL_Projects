@@ -10,6 +10,10 @@ Deep Learning mini-projects for the EPFL course (Spring 2018) taught by Fleuret 
 * Wojciech Jerzy Reise
 * Sergio Daniel Hernandez Charpak
 
+### Cite it
+
+[![DOI](https://zenodo.org/badge/158252506.svg)](https://zenodo.org/badge/latestdoi/158252506)
+
 ## EEG - BCI - Project
 The first project ([here](https://github.com/sercharpak/DL_Projects/tree/master/EEG-BCI-Project/)) consisted on re-doing one of the 
 BCI challenges (with EEG data) of predicting laterality of finger movement 
